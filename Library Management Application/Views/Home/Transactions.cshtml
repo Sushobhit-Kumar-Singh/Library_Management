@@ -1,0 +1,44 @@
+﻿@model List<Transaction>
+
+<h2>Transaction Records</h2>
+
+<table class="table table-hover">
+	<thead>
+		<tr>
+			<th>Transaction ID</th>
+             <th>Book ISBN</th>
+			<th>Book Title</th>
+            <th>Issue Date</th>
+			<th>Due Date</th>
+			<th>Return Date</th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (var transaction in Model)
+		{
+			@if (transaction.ReturnDate == null)
+			{
+				<tr class="table-danger">
+					<td>@transaction.TransactionId</td>
+					<td>@transaction.BookIsbn</td>
+					<td>@transaction.BookIsbnNavigation.Title</td>
+                    <td>@transaction.IssueDate?.ToString("dd-MM-yyyy")</td>
+					<td>@transaction.DueDate?.ToString("dd-MM-yyyy")</td>
+					<td>@transaction.ReturnDate?.ToString("dd-MM-yyyy")</td>
+				</tr>
+			}
+			else
+			{
+				<tr class="table-success">
+					<td>@transaction.TransactionId</td>
+                    <td>@transaction.BookIsbn</td>
+					<td>@transaction.BookIsbnNavigation.Title</td>
+                    <td>@transaction.IssueDate?.ToString("dd-MM-yyyy")</td>
+					<td>@transaction.DueDate?.ToString("dd-MM-yyyy")</td>
+					<td>@transaction.ReturnDate?.ToString("dd-MM-yyyy")</td>
+				</tr>
+			}
+
+		}
+	</tbody>
+</table>

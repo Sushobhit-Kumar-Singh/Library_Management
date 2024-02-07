@@ -1,0 +1,73 @@
+﻿@model Library_Management_Application.Models.HomeViewModel
+
+<h2>Library Homepage</h2>
+
+<div>
+    <h3>All Books</h3>
+    <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Borrowed">Borrowed Books</a>
+    <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Returned">Returned Books</a>
+    <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Transactions">Transactions Record</a>
+
+
+      <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>ISBN</th>
+                <th>Title</th>
+                <th>Author</th>
+                <th>Genre</th>
+                <th>Publication Year</th>
+                <th>Available Copies</th>
+                <th>Total Copies</th>
+                <th>Functionality</th>
+          </tr>
+        </thead>
+        <tbody>
+            @if(ViewBag.Message!=null)
+            {
+                <tr>
+					<td colspan="8">@ViewBag.Message</td>
+				</tr>
+            }
+            else
+            {
+                @foreach (var book in Model.AllBooks)
+                {
+                    <tr>
+                        <td>@book.Isbn</td>
+                        <td>@book.Title</td>
+                        <td>@book.Author</td>
+                        <td>@book.Genre</td>
+                        <td>@book.PublicationYear</td>
+                        <td>@book.CopiesAvailable</td>
+                        <td>@book.TotalCopies</td>
+                        <td>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <form asp-controller="Home" asp-action="BorrowBook" method="post">
+                                        <input type="hidden" name="isbn" value="@book.Isbn" />
+                                        <input type="hidden" name="memberId" value="@Model.memberId" />
+                                        <button type="submit" class="btn btn-outline-primary">Borrow</button>
+                                    </form>
+                                </div>
+
+                                <div class ="col-md-6">
+                                    <form asp-controller="Home" asp-action="ReturnBook" method="post">
+                                        <input type="hidden" name="isbn" value="@book.Isbn" />
+                                        <input type="hidden" name="memberId" value="@Model.memberId" />
+                                        <button type="submit" class="btn btn-outline-primary">Return</button>
+                                    </form>
+                                </div>
+ 
+                            </div>
+                            
+
+                            
+                        </td>
+                    </tr>
+                }
+            }
+           
+        </tbody>
+    </table>
+</div>

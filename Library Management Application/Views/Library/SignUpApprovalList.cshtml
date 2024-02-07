@@ -1,0 +1,60 @@
+﻿@model List<Register>
+@{
+	ViewData["Title"] = "Sign Up Approval List Page";
+}
+
+<h2>Sign Up Approval List</h2>
+
+@if (TempData["ApprovalMessage"] != null)
+{
+	<div class="alert alert-success">
+		@TempData["ApprovalMessage"];
+	</div>
+}
+@if (TempData["RejectMessage"] != null)
+
+{
+	<div class="alert alert-danger">
+		@TempData["RejectMessage"];
+	</div>
+}
+
+
+<table class="table table-hover">
+	<thead>
+		<tr>
+			<th>Name</th>
+			<th>Address</th>
+			<th>Phone Number</th>
+			<th>E Mail</th>
+			<th>Approval Status</th>
+			<th>Action</th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (var signUp in Model)
+		{
+			<tr>
+				<td>@signUp.Name</td>
+				<td>@signUp.Address</td>
+				<td>@signUp.PhoneNumber</td>
+				<td>@signUp.EMail</td>
+				<td>@(signUp.IsApproved ? "Approved" : "Pending")</td>
+				<td>
+					@if (!signUp.IsApproved)
+					{
+						<a asp-action="ApproveSignUp" asp-route-memberId="@signUp.MemberId" class="btn btn-outline-primary">Approve</a>
+					}
+					<a asp-action="RejectSignUp" asp-route-memberId="@signUp.MemberId" class="btn btn-outline-danger">Reject</a>
+				</td>
+			</tr>
+		}
+	</tbody>
+</table>
+
+@section Scripts {
+	@{
+		await Html.RenderPartialAsync("_ValidationScriptsPartial");
+	}
+}
+

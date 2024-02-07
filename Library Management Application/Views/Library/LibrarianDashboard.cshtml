@@ -1,0 +1,40 @@
+﻿@model List<Book>
+
+<h2>Book Index</h2>
+<a class="navbar-brand" asp-controller="Library" asp-action="Create">Create a new Book</a>
+<a class="navbar-brand" asp-controller="Library" asp-action="SignUpApprovalList">Sign Up Approval List</a>
+
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>ISBN</th>
+            <th>Title</th>
+            <th>Author</th>
+            <th>Genre</th>
+            <th>Publication Year</th>
+            <th>Copies Available</th>
+            <th>Total Copies</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var book in Model)
+        {
+            <tr>
+                <td>@book.Isbn</td>
+                <td>@book.Title</td>
+                <td>@book.Author</td>
+                <td>@book.Genre</td>
+                <td>@book.PublicationYear</td>
+                <td>@book.CopiesAvailable</td>
+                <td>@book.TotalCopies</td>
+                <td>
+                    <a class="navbar-brand link-dark" asp-controller="Library" asp-action="Details" asp-route-isbn="@book.Isbn">Details</a>
+                    <a class="navbar-brand link-dark" asp-controller="Library" asp-action="Edit" asp-route-isbn="@book.Isbn">Edit</a>
+                    <a class="navbar-brand link-danger" asp-controller="Library" asp-action="Delete" asp-route-isbn="@book.Isbn">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

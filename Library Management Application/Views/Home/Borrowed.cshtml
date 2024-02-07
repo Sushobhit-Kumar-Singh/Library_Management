@@ -1,0 +1,34 @@
+﻿@model List<Library_Management_Application.Models.Transaction>
+
+<h2>Borrowed Books</h2>
+
+@if (Model.Count > 0)
+{
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>ISBN</th>
+                <th>Title</th>
+                <th>Author</th>
+                <th>Issue Date</th>
+                <th>Due Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var transaction in Model)
+            {
+                <tr>
+                    <td>@transaction.BookIsbn</td>
+                    <td>@transaction.BookIsbnNavigation.Title</td>
+                    <td>@transaction.BookIsbnNavigation.Author</td>
+                    <td>@transaction.IssueDate?.ToString("dd-MM-yyyy")</td>
+                    <td>@transaction.DueDate?.ToString("dd-MM-yyyy")</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>No books have been borrowed.</p>
+}

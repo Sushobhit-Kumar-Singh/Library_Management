@@ -1,0 +1,13 @@
+﻿@{
+    if (Context != null && Context.Request != null)
+    {
+        var memberName = Context.Session.GetString("MemberName");
+
+        if (!string.IsNullOrEmpty(memberName))
+        {
+            <div>
+                Welcome, @memberName!
+            </div>
+        }
+    }
+}
